@@ -1,6 +1,6 @@
-# Peter Kolb Transcription project
+# Fraktur German/Peter Kolb transcription project
 
-This repo contains code and output from my project at Stanford CESTA. The project consisted of transcribing German explorer Peter Kolb's 1719 book on the Cape of Good Hope. I managed to take the book from being images to being machine-readable and editiable text files. Versions of these files are in the `output-txt` folder. 
+This repo contains code and output from my project at Stanford Center for Spatial and Textual Analysis (CESTA). The project consisted of transcribing German explorer Peter Kolb (or Kolbe)'s 1719 book on the Cape of Good Hope from scanned images to machine-readable and editiable text files. Versions of these files are in the `output-txt` folder. 
 
 ### Key Resources
 
@@ -18,6 +18,16 @@ This repo contains code and output from my project at Stanford CESTA. The projec
 * The source file from Internet Archive is **NOT** complete. There is missing content around page number 57-59, as seen by how the printed page numbers at the top of the page margins do not line up in sequence. In my work I decided to skip page 58.
 
 ## Summary
+
+In this project I was tasked with taking Kolb's 1719 book --the most-thorough and cited of its kind in being a primary source of the experiences and perspectives of early European explorers and settlers in the Cape of Good Hope, from scanned images of the original print into textual files that would be compatible with modern research and, specificially, digital humanities methods. This presented the need for having the text in machine-readable form.
+
+The two main challenges brought by the book were: understanding early-modern Fraktur German writing, and secondly, recognizing the reading order between columns and headers. 
+
+Thus, I proceeded to explore transcription tools to find the one that performed the strongest on my text given these hurdles. In summary, each tool I explored still came up short in some way. All pre-built transcription web apps failed to recognize the different column regions; large-language models (LLMs) like Gemini or Chat-GPT-4o did not consistently produce quality output when prompted on pages of identical layout; and, even though they succeeded in region recognition, standard Python text extraction packages (ie. Tesseract)  lacked the language training to understand the Fraktur German print. As I continued experimenting with tools, I was able to devise methods that I could apply to at least part of the text and thus utilize the most effective tools available in the most efficient combination.
+For the hundreds of pages with the identical layout, I was able to write a Python script that used an API call to a tool within Google’s Cloud Platform, Google Vertex Vision AI. In the script, I take each page as an image and crop it into regions using predetermined coordinates, then passing these pieces of image to the Vision AI processor and getting the text output in the same order as the regions. For the remaining pages, which had layouts too complex to crop into regions systematically, I used the Transkribus transcription platform. Within Transkribus, I cycled through every page and manually created “bounding boxes” over every region or column I deemed necessary on the page before running a Transkribus pre-trained LLM. After the model finished running, I onced again cycled through every page and edited or organized around the model’s error. Finally, it took another and simpler Python script to bring the output from Vision AI and Transkribus together into a Docx containing all the text in the book.
+
+
+## Script pipeline
 
 Below you find the order in which I utilized the scripts in this repo during my text processing pipeline:
 
