@@ -5,7 +5,7 @@ This repo contains code and output from my project at Stanford Center for Spatia
 ### Key Resources
 
 * The anthology article (more detailed & aesthetic than GitHub) written by Sam about his work can be found at [cesta-io.stanford.edu](https://cesta-io.stanford.edu/anthology/2024-research-anthology/early-cape-travelers/)
-* Source files for the book can be found at [interntarchive.org](https://archive.org/details/bub_gb_MbxYAAAAcAAJ)
+* Source files for the book can be found at [internetarchive.org](https://archive.org/details/bub_gb_MbxYAAAAcAAJ)
 * Source files of the archival texts used to build a historical German corpus for the spell checker: [DTA normalized/plaintext corpus 1600-1699](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [DTA normalized/plaintext corpus 1700-1799](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [CLARIN GeMiCorpus 1500-1700](https://llds.ling-phil.ox.ac.uk/llds/xmlui/handle/20.500.14106/2562)
 * Guidance on using GCP Document AI can be found here: [product guide](https://cloud.google.com/document-ai), [scripting guide](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/main/documentai/snippets), [enterprise OCR overview](https://cloud.google.com/document-ai/docs/enterprise-document-ocr)
 
