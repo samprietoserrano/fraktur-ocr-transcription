@@ -9,25 +9,35 @@ This repo contains code and output from my project at Stanford Center for Spatia
 * Sources of the archival texts used to build a historical German corpus for the spell checker: [DTA normalized/plaintext corpus 1600-1699](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [DTA normalized/plaintext corpus 1700-1799](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [CLARIN GeMiCorpus 1500-1700](https://llds.ling-phil.ox.ac.uk/llds/xmlui/handle/20.500.14106/2562)
 * Guidance on using GCP Document AI can be found here: [product guide](), [scripting guide](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/main/documentai/snippets), [enterprise OCR overview](https://cloud.google.com/document-ai/docs/enterprise-document-ocr)
 
-## Recommended Next Steps
-* Run the manual check program with a German-speaker to vet unknown words and then run the updating version of the script.
-* Continue expanding the corpus collection to add to the three file sets used.
-
-#### Warnings
-* Some pages that hold illustrations also contain some minor text, serving as descriptor of the illustration. However, of these pages, only page 17 (0017.txt) was run through the text extraction process (and oversight on my part). Future versions of this project should process all pages in the "pg_img-new" group that also have text.
-* The source file from Internet Archive is **NOT** complete. There is missing content around page number 57-59, as seen by how the printed page numbers at the top of the page margins do not line up in sequence. In my work I decided to skip page 58.
-
 ## Summary
 
 In this project I was tasked with taking Kolb's 1719 book --the most-thorough and cited of its kind in being a primary source of the experiences and perspectives of early European explorers and settlers in the Cape of Good Hope, from scanned images of the original print into textual files that would be compatible with modern research and, specificially, digital humanities methods. This presented the need for having the text in machine-readable form.
 
-The two main challenges brought by the book were: understanding early-modern Fraktur German writing, and secondly, recognizing the reading order between columns and headers. 
+### Obstacles 
+The two main challenges brought by the book were: 
+1. understanding early-modern Fraktur German writing,
+2. recognizing the reading order between columns and headers.
 
-Thus, I proceeded to explore transcription tools to find the one that performed the strongest on my text given these hurdles. In summary, each tool I explored still came up short in some way. All pre-built transcription web apps failed to recognize the different column regions; large-language models (LLMs) like Gemini or Chat-GPT-4o did not consistently produce quality output when prompted on pages of identical layout; and, even though they succeeded in region recognition, standard Python text extraction packages (ie. Tesseract)  lacked the language training to understand the Fraktur German print. As I continued experimenting with tools, I was able to devise methods that I could apply to at least part of the text and thus utilize the most effective tools available in the most efficient combination.
-For the hundreds of pages with the identical layout, I was able to write a Python script that used an API call to a tool within Google’s Cloud Platform, Google Vertex Vision AI. In the script, I take each page as an image and crop it into regions using predetermined coordinates, then passing these pieces of image to the Vision AI processor and getting the text output in the same order as the regions. For the remaining pages, which had layouts too complex to crop into regions systematically, I used the Transkribus transcription platform. Within Transkribus, I cycled through every page and manually created “bounding boxes” over every region or column I deemed necessary on the page before running a Transkribus pre-trained LLM. After the model finished running, I onced again cycled through every page and edited or organized around the model’s error. Finally, it took another and simpler Python script to bring the output from Vision AI and Transkribus together into a Docx containing all the text in the book.
+Most of the readily-accessible tools I explored still came up short in some way. 
+| Tool  | Issues |
+|-------|-------|
+| all pre-built transcription web apps| failed to recognize the different column regions|
+| Gemini, Chat-GPT-4o| Issue 2|
+| Tool 3| Issue 3|
 
+* all pre-built transcription web apps failed to recognize the different column regions;
+* large-language models (LLMs) like Gemini or Chat-GPT-4o did not consistently produce quality output when prompted on pages of identical layout;
+* and, even though they succeeded in region recognition, standard Python text extraction packages (ie. Tesseract)  lacked the language training to understand the Fraktur German print.
 
-## Script pipeline
+Along the way I considered training a custom model or text extraction porcessor, however I weighed the scope of the project and intended outcome and decided against the effort to manually tag and create training and validation sets. The focus of my task, and purspose of the larger Early Cape Travelers research project, was not to focus developing high accurary text tools but rather produce the best possible version of the Kolb book within my internship time. As I continued experimenting with tools, I was able to devise methods that I could apply to at least part of the text and thus utilize the most effective tools available in the most efficient combination.
+
+After grouping all pages by layout, I arrived at two big groups: about 750 pages had two columns of text with minor outer-margin text (Group A), and about 250 pages of varying layouts with columns, tables, or images (Group B). For Group A, I was able to write a Python script for Google Cloud Platform’s “Vertex Vision AI” API. In my script, I take each page as an image, crop it into regions using predetermined coordinates, pass the regions to the Vision AI processor, and I get text output in the same order as the regions. For Group B, which had layouts too complex to crop into regions systematically, I used the Transkribus transcription platform. Within Transkribus, I manually created ‘bounding boxes’ over every text region I deemed necessary, ran a Transkribus pre-trained LLM, and then edited or organized the text around the model’s errors. 
+
+Next, I moved into post-processing the extracted text with a handful of NLP open-source software. After smaller corrections, I faced the need to spell check the 550k words in the corpus. I found that all other spell checking tools seemed to not handle the historical vocabulary, I ended up creating and feedomh my own dictionary of German words from 1500-1800 to PySpellChecker. 
+
+Finally, I was able to bring all text, images, and tables together into a Docx document that is readable, editable, and searchable for specific content depending on the research goals. In the `output-txt` there is also the plain text files for every page.
+
+### Script pipeline
 
 Below you find the order in which I utilized the scripts in this repo during my text processing pipeline:
 
@@ -69,7 +79,7 @@ Below you find the order in which I utilized the scripts in this repo during my 
     * this script auto-updates, thus no need for separate update script
    
 
-## Page Group Breakdown
+### Page Group Breakdown
 If interested in knowing what pages I group with what, below see the page numbers for each group. These page numbers are based on their PDF page number from the source PDF.
 
 For example, the first page of the book has page number 1 (not 0), it would belong to the "pg_img-new" list from below, and its txt file would be 01.txt. Except that page is a pure image page with no text, so there was not a txt file created for it. 
@@ -92,8 +102,10 @@ group_lists = {
 }
 ~~~
 
-## Authors
-- [@samprietoserrano](https://www.github.com/samprietoserrano)
+## Recommended Next Steps
+* Run the manual check program with a German-speaker to vet unknown words and then run the updating version of the script.
+* Continue expanding the corpus collection to add to the three file sets used.
 
-
-
+#### Warnings
+* Some pages that hold illustrations also contain some minor text, serving as descriptor of the illustration. However, of these pages, only page 17 (0017.txt) was run through the text extraction process (and oversight on my part). Future versions of this project should process all pages in the "pg_img-new" group that also have text.
+* The source file from Internet Archive is **NOT** complete. There is missing content around page number 57-59, as seen by how the printed page numbers at the top of the page margins do not line up in sequence. In my work I decided to skip page 58.
