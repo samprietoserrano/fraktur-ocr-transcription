@@ -113,7 +113,7 @@ The spellchecker has verious terminal command options when run. The user can sel
 * include or exclude the CLARIN archival data set (given their origin is medical context which might be deemed not relevant to the book contents)
 * save or not save the frequency dict created (if not using a pre-existing)
 
-I have included a snapshot of the relevant code line to help visualize this part of the program.
+I have included a snapshot of the relevant code to help visualize this part of the program.
 ~~~
 if path_choice == "y":
     txt_folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp1-merged'
