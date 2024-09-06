@@ -4,7 +4,7 @@ This repo contains code and output from my project at Stanford Center for Spatia
 
 ### Key Resources
 
-* The anthology article written by Sam about his work can be found at [cesta-io.stanford.edu](https://cesta-io.stanford.edu/anthology/2024-research-anthology/early-cape-travelers/)
+* The anthology article (more detailed & aesthetic than GitHub) written by Sam about his work can be found at [cesta-io.stanford.edu](https://cesta-io.stanford.edu/anthology/2024-research-anthology/early-cape-travelers/)
 * Source files for the book can be found at [interntarchive.org](https://archive.org/details/bub_gb_MbxYAAAAcAAJ)
 * Source files of the archival texts used to build a historical German corpus for the spell checker: [DTA normalized/plaintext corpus 1600-1699](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [DTA normalized/plaintext corpus 1700-1799](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [CLARIN GeMiCorpus 1500-1700](https://llds.ling-phil.ox.ac.uk/llds/xmlui/handle/20.500.14106/2562)
 * Guidance on using GCP Document AI can be found here: [product guide](https://cloud.google.com/document-ai), [scripting guide](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/main/documentai/snippets), [enterprise OCR overview](https://cloud.google.com/document-ai/docs/enterprise-document-ocr)
@@ -21,11 +21,12 @@ The two main challenges brought by the book were:
 Most of the readily-accessible tools I explored still came up short in some way:
 | Tool  | Issues |
 |-------|-------|
-| ABBYY FineReader, Google Docs, Adobe Acrobat, others | failed to recognize different column regions   |
+| ABBYY FineReader, Google Docs, Adobe Acrobat | failed to recognize different column regions           |
+| Transkribus | too time-consuming if using on the whole book                                           |
 | Gemini, Chat-GPT-4o, trOCR, Claude| unreliable generation if untrained, too time-consuming if trained |
 | Tesseract, PyMuPDF | lacked language training for Fraktur German                                      |
 
-The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of the Kolb book within my internship time, and this informed the tools I ended up going with. This process for text extraction is visualized below.
+The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of this book within my internship time, and this informed the tools I ended up going with (GCP Document AI and Transkribus). My process for text extraction is visualized below.
 
 <p align="center">
   <img src="extraction-diagram.png" alt="drawing" width="65%" />
@@ -39,7 +40,7 @@ Finally, I was able to bring all text, images, and tables together into a Docx d
 
 ## Script pipeline
 
-Below you find the order in which I utilized the scripts in this repo during my text processing pipeline:
+Below you find the order in which I utilized the scripts in this repo during my text processing pipeline.
 
 1. `text-extraction\jpeg_conversion.py`
    * convert jp2 files (from Internet Archive) into JPEG
@@ -102,6 +103,50 @@ group_lists = {
 }
 ~~~
 
+
+## Spellchecker Options
+The spellchecker has verious terminal command options when run. The user can select a combination of the following features for their spellchecker:
+
+* use hard-coded list of files being spellchecked, or provide your own list
+* create a brand new word list/frequency dict or use the pre-exiting one
+* use a word list or frequency dict as the corpus for the spellchecker (`word_frequency.load_words(data)` vs `word_frequency.load_json(data)` in the PySpellChecker API)
+* include or exclude the CLARIN archival data set (given their origin is medical context which might be deemed not relevant to the book contents)
+* save or not save the frequency dict created (if not using a pre-existing)
+
+I have included a snapshot of the relevant code line to help visualize this part of the program.
+~~~
+if path_choice == "y":
+    txt_folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp1-merged'
+    txt_folder_save = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp2-merged-pyspck'
+elif path_choice == "n":
+    txt_folder = input("Enter path for folder of txt files: ")
+    txt_folder_save = input("Enter path to folder for saving: ")
+
+select = int(run_choice)
+corpus_path = corpus_path_r # optional, use manually-updated corpus list rather than code-produced one  
+if select == 1:
+    # Load the corpus/freq, NO CLARIN DATA
+    word_list = load_corpus(corpus_path)
+    word_freq = load_freq(freq_path)
+elif select == 2:
+    # Load the corpus/freq, YES CLARIN DATA
+    word_list = load_corpus(corpus_path)
+    word_freq = load_freq(freq_path, load_clarin=True)
+elif select == 3:
+    # Load corpus + Update freq, CHECK CLARIN DATA
+    word_list = load_corpus(corpus_path)
+    word_freq = load_freq(freq_path, load_clarin=True, upd_corpus=word_list, save_update=False)
+elif select == 4:
+    # Create + Load corpus ONLY
+    load_and_preprocess_files(directories, corpus_path, freq_path, save_freq=False)
+    word_list = load_corpus(corpus_path)
+elif select == 5:
+    # Create + Load corpus/freq, CHECK CLARIN DATA
+    load_and_preprocess_files(directories, corpus_path, freq_path, save_freq=True)
+    word_list = load_corpus(corpus_path)
+    word_freq = load_freq(freq_path, load_clarin=True)
+~~~
+
 ## Recommended Next Steps
 * Run the manual check program with a German-speaker to vet unknown words and then run the updating version of the script.
 * Continue expanding the corpus collection to add to the three file sets used.
@@ -109,3 +154,7 @@ group_lists = {
 #### Warnings
 * Some pages that hold illustrations also contain some minor text, serving as descriptor of the illustration. However, of these pages, only page 17 (0017.txt) was run through the text extraction process (and oversight on my part). Future versions of this project should process all pages in the "pg_img-new" group that also have text.
 * The source file from Internet Archive is **NOT** complete. There is missing content around page number 57-59, as seen by how the printed page numbers at the top of the page margins do not line up in sequence. In my work I decided to skip page 58.
+
+## Author
+Feel free to contact me by Github [@samprietoserrano](https://www.github.com/samprietoserrano), [Email](mailto:samprieto@outlook.com), or [LinkedIn/SamPrietoSerrano](http://www.linkedin.com/in/samprietoserrano).
+
