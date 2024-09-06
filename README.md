@@ -13,7 +13,7 @@ This repo contains code and output from my project at Stanford Center for Spatia
 
 In this project I was tasked with taking Kolb's 1719 book --the most-thorough and cited of its kind in being a primary source of the experiences and perspectives of early European explorers and settlers in the Cape of Good Hope, from scanned images of the original print into textual files that would be compatible with modern research and, specificially, digital humanities methods. This presented the need for having the text in machine-readable form.
 
-### Obstacles 
+### Text Extraction 
 The two main challenges brought by the book were: 
 1. understanding early-modern Fraktur German writing,
 2. recognizing the reading order between columns and headers.
@@ -27,12 +27,17 @@ Most of the readily-accessible tools I explored still came up short in some way:
 
 The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of the Kolb book within my internship time, and this informed the tools I ended up going with. This process for text extraction is visualized below.
 
-![]
-Next, I moved into post-processing the extracted text with a handful of NLP open-source software. After smaller corrections, I faced the need to spell check the 550k words in the corpus. I found that all other spell checking tools seemed to not handle the historical vocabulary, I ended up creating and feedomh my own dictionary of German words from 1500-1800 to PySpellChecker. 
+<p align="center">
+  <img src="extraction-diagram.png" alt="drawing" width="65%" />
+</p>
 
-Finally, I was able to bring all text, images, and tables together into a Docx document that is readable, editable, and searchable for specific content depending on the research goals. In the `output-txt` there is also the plain text files for every page.
+### Text Cleaning
 
-### Script pipeline
+Next, I moved into post-processing the extracted text with a handful of NLP open-source software. After smaller corrections, I faced the need to spell check the 550k words in the corpus. I found that all other spell checking tools seemed to not handle the historical vocabulary, I ended up creating and feeding my own dictionary of German words from 1500-1800 to PySpellChecker.
+
+Finally, I was able to bring all text, images, and tables together into a Docx document that is readable, editable, and searchable for specific content depending on the research goals. In the `output-txt` folder there is also the plain text files for every page.
+
+## Script pipeline
 
 Below you find the order in which I utilized the scripts in this repo during my text processing pipeline:
 
@@ -74,7 +79,7 @@ Below you find the order in which I utilized the scripts in this repo during my 
     * this script auto-updates, thus no need for separate update script
    
 
-### Page Group Breakdown
+## Page Group Breakdown
 If interested in knowing what pages I group with what, below see the page numbers for each group. These page numbers are based on their PDF page number from the source PDF.
 
 For example, the first page of the book has page number 1 (not 0), it would belong to the "pg_img-new" list from below, and its txt file would be 01.txt. Except that page is a pure image page with no text, so there was not a txt file created for it. 
