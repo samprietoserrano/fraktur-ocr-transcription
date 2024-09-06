@@ -26,7 +26,7 @@ Most of the readily-accessible tools I explored still came up short in some way:
 | Gemini, Chat-GPT-4o, trOCR, Claude| unreliable generation if untrained, too time-consuming if trained |
 | Tesseract, PyMuPDF | lacked language training for Fraktur German                                      |
 
-The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of this book within my internship time, and this informed the tools I ended up going with (GCP Document AI and Transkribus). My process for text extraction is visualized below.
+The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of this book within my internship time, and this informed the tools I ended up going with (GCP Document AI and Transkribus). My process for text extraction is visualized below, where the deciding factor between being tagged as Group A vs Group B was how systematically I could code-up cordindate for cropping the text regions. 
 
 <p align="center">
   <img src="extraction-diagram.png" alt="drawing" width="65%" />
