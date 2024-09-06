@@ -4,10 +4,10 @@ This repo contains code and output from my project at Stanford Center for Spatia
 
 ### Key Resources
 
-* Source files for the book can be found at [InternetArchive.org](https://archive.org/details/bub_gb_MbxYAAAAcAAJ)
 * The anthology article written by Sam about his work can be found at [cesta-io.stanford.edu](https://cesta-io.stanford.edu/anthology/2024-research-anthology/early-cape-travelers/)
-* Sources of the archival texts used to build a historical German corpus for the spell checker: [DTA normalized/plaintext corpus 1600-1699](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [DTA normalized/plaintext corpus 1700-1799](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [CLARIN GeMiCorpus 1500-1700](https://llds.ling-phil.ox.ac.uk/llds/xmlui/handle/20.500.14106/2562)
-* Guidance on using GCP Document AI can be found here: [product guide](), [scripting guide](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/main/documentai/snippets), [enterprise OCR overview](https://cloud.google.com/document-ai/docs/enterprise-document-ocr)
+* Source files for the book can be found at [interntarchive.org](https://archive.org/details/bub_gb_MbxYAAAAcAAJ)
+* Source files of the archival texts used to build a historical German corpus for the spell checker: [DTA normalized/plaintext corpus 1600-1699](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [DTA normalized/plaintext corpus 1700-1799](https://www.deutschestextarchiv.de/download#:~:text=b9a03d116c244c2da30ccc0937cc9c87-,normalized,-package), [CLARIN GeMiCorpus 1500-1700](https://llds.ling-phil.ox.ac.uk/llds/xmlui/handle/20.500.14106/2562)
+* Guidance on using GCP Document AI can be found here: [product guide](https://cloud.google.com/document-ai), [scripting guide](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/main/documentai/snippets), [enterprise OCR overview](https://cloud.google.com/document-ai/docs/enterprise-document-ocr)
 
 ## Summary
 
@@ -18,21 +18,16 @@ The two main challenges brought by the book were:
 1. understanding early-modern Fraktur German writing,
 2. recognizing the reading order between columns and headers.
 
-Most of the readily-accessible tools I explored still came up short in some way. 
+Most of the readily-accessible tools I explored still came up short in some way:
 | Tool  | Issues |
 |-------|-------|
-| all pre-built transcription web apps| failed to recognize the different column regions|
-| Gemini, Chat-GPT-4o| Issue 2|
-| Tool 3| Issue 3|
+| ABBYY FineReader, Google Docs, Adobe Acrobat, others | failed to recognize different column regions   |
+| Gemini, Chat-GPT-4o, trOCR, Claude| unreliable generation if untrained, too time-consuming if trained |
+| Tesseract, PyMuPDF | lacked language training for Fraktur German                                      |
 
-* all pre-built transcription web apps failed to recognize the different column regions;
-* large-language models (LLMs) like Gemini or Chat-GPT-4o did not consistently produce quality output when prompted on pages of identical layout;
-* and, even though they succeeded in region recognition, standard Python text extraction packages (ie. Tesseract)  lacked the language training to understand the Fraktur German print.
+The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of the Kolb book within my internship time, and this informed the tools I ended up going with. This process for text extraction is visualized below.
 
-Along the way I considered training a custom model or text extraction porcessor, however I weighed the scope of the project and intended outcome and decided against the effort to manually tag and create training and validation sets. The focus of my task, and purspose of the larger Early Cape Travelers research project, was not to focus developing high accurary text tools but rather produce the best possible version of the Kolb book within my internship time. As I continued experimenting with tools, I was able to devise methods that I could apply to at least part of the text and thus utilize the most effective tools available in the most efficient combination.
-
-After grouping all pages by layout, I arrived at two big groups: about 750 pages had two columns of text with minor outer-margin text (Group A), and about 250 pages of varying layouts with columns, tables, or images (Group B). For Group A, I was able to write a Python script for Google Cloud Platform’s “Vertex Vision AI” API. In my script, I take each page as an image, crop it into regions using predetermined coordinates, pass the regions to the Vision AI processor, and I get text output in the same order as the regions. For Group B, which had layouts too complex to crop into regions systematically, I used the Transkribus transcription platform. Within Transkribus, I manually created ‘bounding boxes’ over every text region I deemed necessary, ran a Transkribus pre-trained LLM, and then edited or organized the text around the model’s errors. 
-
+![]
 Next, I moved into post-processing the extracted text with a handful of NLP open-source software. After smaller corrections, I faced the need to spell check the 550k words in the corpus. I found that all other spell checking tools seemed to not handle the historical vocabulary, I ended up creating and feedomh my own dictionary of German words from 1500-1800 to PySpellChecker. 
 
 Finally, I was able to bring all text, images, and tables together into a Docx document that is readable, editable, and searchable for specific content depending on the research goals. In the `output-txt` there is also the plain text files for every page.
