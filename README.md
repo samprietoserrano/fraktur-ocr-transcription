@@ -31,7 +31,7 @@ The focus of my task, and purpose of the larger Early Cape Travelers research pr
 My process for text extraction is visualized below, where the deciding factor between being tagged as Group A vs Group B was how systematically I could code-up coordinates to crop the text regions. 
 
 <p align="center">
-  <img src="extraction-diagram.png" alt="drawing" width="65%" />
+  <img src="img/extraction-diagram.png" alt="drawing" width="65%" />
 </p>
 
 ### Text Cleaning
