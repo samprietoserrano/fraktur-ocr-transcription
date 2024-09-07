@@ -1,0 +1,12 @@
+Processed 09.txt, with 14 errors
+Processed 11.txt, with 7 errors
+Processed 12.txt, with 5 errors
+Processed 13.txt, with 35 errors
+Processed 14.txt, with 38 errors
+Processed 15.txt, with 39 errors
+Processed 16.txt, with 9 errors
+Processed 17.txt, with 3 errors
+Processed 19.txt, with 42 errors
+Processed 20.txt, with 50 errors
+Processed 21.txt, with 40 errors
+Processed 22.txt, with 16 errors
