@@ -152,6 +152,7 @@ elif select == 5:
 ## Recommended Next Steps
 * Run the manual check program with a German-speaker to vet unknown words and then run the updating version of the script.
 * Continue expanding the corpus collection to add to the three file sets used.
+* Possible create a Python package for the spellchecker to optimize its functionality. 
 
 #### Warnings
 * Some pages that hold illustrations also contain some minor text, serving as descriptor of the illustration. However, of these pages, only page 17 (0017.txt) was run through the text extraction process (and oversight on my part). Future versions of this project should process all pages in the "pg_img-new" group that also have text.
