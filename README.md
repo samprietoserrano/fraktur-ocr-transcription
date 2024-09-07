@@ -11,24 +11,24 @@ This repo contains code and output from my project at Stanford Center for Spatia
 
 ## Summary
 
-In this project I was tasked with taking Kolb's 1719 book --the most-thorough and cited of its kind in being a primary source of the experiences and perspectives of early European explorers and settlers in the Cape of Good Hope, from scanned images of the original print into textual files that would be compatible with modern research and, specificially, digital humanities methods. This presented the need for having the text in machine-readable form.
+In this project I was tasked with taking Kolb's 1719 book &mdash;the most-thorough and cited of its kind in being a primary source of the experiences and perspectives of early European explorers and settlers in the Cape of Good Hope&mdash; from scanned images of the original print into textual files that would be compatible with modern research and, specificially, digital humanities methods. This presented the need for having the text in machine-readable form.
 
 ### Text Extraction 
-The two main challenges brought by the book were: 
-1. understanding early-modern Fraktur German writing,
+The two main requirements for a transcription tool were: 
+1. understanding early-modern Fraktur German writing, and
 2. recognizing the reading order between columns and headers.
 
-Most of the readily-accessible tools I explored still came up short in some way:
+Most of the readily-accessible tools I explored came up short in some way:
 | Tool  | Issues |
 |-------|-------|
-| ABBYY FineReader, Google Docs, Adobe Acrobat | failed to recognize different column regions           |
-| Transkribus | too time-consuming if using on the whole book                                           |
-| Gemini, Chat-GPT-4o, trOCR, Claude| unreliable generation if untrained, too time-consuming if trained |
-| Tesseract, PyMuPDF | lacked language training for Fraktur German                                      |
+| ABBYY FineReader, Google Docs, Adobe Acrobat | failed to recognize different column regions |
+| Transkribus | too time-consuming if using on the whole book |
+| Gemini, ChatGPT-4o, trOCR, Claude| unreliable generation if untrained; too time-consuming if trained |
+| Tesseract, PyMuPDF | lacked language training for Fraktur German |
 
-The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of this book within my internship time, and this informed the tools I ended up going with (GCP Document AI and Transkribus).
+The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of this book within my internship time. With this in mind, I ended up going with a combination of GCP Document AI and Transkribus.
 
-My process for text extraction is visualized below, where the deciding factor between being tagged as Group A vs Group B was how systematically I could code-up coordinates to crop the text regions. 
+My process for text extraction is visualized below, where the deciding factor between a page being tagged as Group A vs Group B was how systematically I could code-up coordinates to crop its text regions. 
 
 <p align="center">
   <img src="img/extraction-diagram.png" alt="drawing" width="65%" />
