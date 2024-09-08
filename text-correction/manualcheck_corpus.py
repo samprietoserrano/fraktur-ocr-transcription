@@ -3,8 +3,8 @@ import os
 def get_source():
     """Generate the source file, either original or the remaining word list."""
 
-    og_source = '/Users/samxp/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words.txt'
-    rem_source = '/Users/samxp/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/manchck/custom_words-remaining.txt'
+    og_source = '/Users/USER/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words.txt'
+    rem_source = '/Users/USER/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/manchck/custom_words-remaining.txt'
 
     if not os.path.exists(rem_source):
         return og_source, rem_source

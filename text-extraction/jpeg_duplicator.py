@@ -24,8 +24,8 @@ def duplicate_jpegs(page_list, source_folder, target_folder):
     print(str(copies) + " copies made.")
 
 def main():
-    source_folder = '/Users/samxp/Documents/CESTA-Summer/all-pages-as-jpeg'  # Replace with the path to your source folder
-    target_folder = '/Users/samxp/Documents/CESTA-Summer/all-pages-as-jpeg/images-only'  # Replace with the path to your target folder
+    source_folder = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg'  # Replace with the path to your source folder
+    target_folder = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg/images-only'  # Replace with the path to your target folder
     
     # Indices of the pages to extract (1-based)
     pg_begin = [i for i in range(9, 23)]

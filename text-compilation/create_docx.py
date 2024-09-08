@@ -12,7 +12,7 @@ from docx_creation_helpers import add_hyperlink, add_image_to_page, apply_format
 def load_image_pages():
     """Returns the page number and path of pages identified as holding an image/visual."""
 
-    image_folder = '/Users/samxp/Documents/CESTA-Summer/all-pages-as-jpeg'
+    image_folder = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg'
 
     img_nums = [1, 2, 5, 8, 17, 76, 140, 170, 177, 192, 201, 210, 218, 236, 240, 
                         456, 473, 491, 519, 523, 529, 557, 569, 576, 590, 600, 
@@ -88,7 +88,7 @@ def add_intro_page(doc):
         item += 1
 
     # Image paragraph
-    image_path = '/Users/samxp/Documents/CESTA-Summer/all-pages-as-jpeg/images-only/bub_gb_MbxYAAAAcAAJ_0016.jpg'
+    image_path = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg/images-only/bub_gb_MbxYAAAAcAAJ_0016.jpg'
     image_par = doc.add_paragraph()
     run = image_par.add_run()
     run.add_picture(image_path, width=Inches(1.5), height=Inches(2.5))
@@ -169,8 +169,8 @@ def txt_to_word(folder, output_folder, format):
 
 
 def main():
-    folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/merged'
-    output_folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/merged/docx'
+    folder = '/Users/USER/Documents/CESTA-Summer/output-txt/merged'
+    output_folder = '/Users/USER/Documents/CESTA-Summer/output-txt/merged/docx'
     os.makedirs(output_folder, exist_ok=True)
 
     format_choice = input("Make the Docx with formatting? (y/n/both): ")

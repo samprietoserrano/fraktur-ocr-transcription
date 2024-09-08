@@ -191,10 +191,10 @@ def process_folder(folder_path, exit_folder, option):
                     print(f"Processed special line corrections for '{file_name}'")
 
 def main():
-    input_folders = ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index',
-                     '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp1']
-    exit_folders = ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp1',
-                    '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp2']
+    input_folders = ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/index',
+                     '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp1']
+    exit_folders = ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp1',
+                    '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp2']
 
     select = 3
     # Options for 'select':

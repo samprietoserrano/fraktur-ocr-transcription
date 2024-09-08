@@ -6,9 +6,9 @@ def get_source():
     # Find dir where script is located
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    if 'samxp' in script_dir:
-        og_source = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/metadata/file-error-unknowns.txt'
-        rem_source = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/metadata/manchck-proc/source-remaining.txt'
+    if 'USER' in script_dir:
+        og_source = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/metadata/file-error-unknowns.txt'
+        rem_source = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/metadata/manchck-proc/source-remaining.txt'
     
         if not os.path.exists(rem_source):
             return og_source, rem_source, script_dir
@@ -35,8 +35,8 @@ def get_next_filename(folder, base_name, extension):
 
 def save_list_to_file(words_list, base_name, script_dir):
     """Save the list of words to a text file."""
-    if 'samxp' in script_dir:
-        folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/metadata/manchck-proc'
+    if 'USER' in script_dir:
+        folder = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/metadata/manchck-proc'
     else:
         folder = script_dir + '/manchck-proc'
     os.makedirs(folder, exist_ok=True)
@@ -51,7 +51,6 @@ def save_list_to_file(words_list, base_name, script_dir):
 
 def main():
     source_file, future_file, script_dir = get_source()
-    # print(source_file, "\n", future_file)
 
     try:
         with open(source_file, 'r') as f:

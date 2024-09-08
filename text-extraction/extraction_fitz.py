@@ -188,15 +188,15 @@ def output_margins_p(margins):
         print()
 
 # Open the PDF file
-# pdf_file = fitz.open("/Users/samxp/Documents/CESTA-Summer/output-txt/script-with-new-pdf/sample-main-pages.pdf")
-pdf_file = fitz.open("/Users/samxp/Documents/CESTA-Summer/pdf_by_types/only-script-eligible.pdf")
+# pdf_file = fitz.open("/Users/USER/Documents/CESTA-Summer/output-txt/script-with-new-pdf/sample-main-pages.pdf")
+pdf_file = fitz.open("/Users/USER/Documents/CESTA-Summer/pdf_by_types/only-script-eligible.pdf")
 # page = pdf_file[905]
 
 # Get the text flags for the clip box
 flags = fitz.TEXT_PRESERVE_WHITESPACE | fitz.TEXT_PRESERVE_LIGATURES 
 
 # Create the output directory if it doesn't exist
-output_dir = "/Users/samxp/Documents/CESTA-Summer/output-txt/script-with-new-pdf/"
+output_dir = "/Users/USER/Documents/CESTA-Summer/output-txt/script-with-new-pdf/"
 os.makedirs(output_dir, exist_ok=True)
 
 # Extract text from all pages

@@ -17,14 +17,14 @@ group_lists = {
 
 # Paths for each page group map
 group_paths = {
-    "pg_begin": '/Users/samxp/Documents/CESTA-Summer/mappings/beg-text-map.txt',
-    "pg_toc": '/Users/samxp/Documents/CESTA-Summer/mappings/toc-text-map.txt',
-    "pg_starts": '/Users/samxp/Documents/CESTA-Summer/mappings/nonsimple-text-map.txt',
-    "pg_main": '/Users/samxp/Documents/CESTA-Summer/mappings/main-text-map.txt',
-    "pg_index": '/Users/samxp/Documents/CESTA-Summer/mappings/index-text-map.txt',
-    "pg_tables": '/Users/samxp/Documents/CESTA-Summer/mappings/tables-text-map.txt',
-    "pg_other": '/Users/samxp/Documents/CESTA-Summer/mappings/other-text-map.txt',
-    "pg_dict": '/Users/samxp/Documents/CESTA-Summer/mappings/dict-text-map.txt',
+    "pg_begin": '/Users/USER/Documents/CESTA-Summer/mappings/beg-text-map.txt',
+    "pg_toc": '/Users/USER/Documents/CESTA-Summer/mappings/toc-text-map.txt',
+    "pg_starts": '/Users/USER/Documents/CESTA-Summer/mappings/nonsimple-text-map.txt',
+    "pg_main": '/Users/USER/Documents/CESTA-Summer/mappings/main-text-map.txt',
+    "pg_index": '/Users/USER/Documents/CESTA-Summer/mappings/index-text-map.txt',
+    "pg_tables": '/Users/USER/Documents/CESTA-Summer/mappings/tables-text-map.txt',
+    "pg_other": '/Users/USER/Documents/CESTA-Summer/mappings/other-text-map.txt',
+    "pg_dict": '/Users/USER/Documents/CESTA-Summer/mappings/dict-text-map.txt',
     "pg_skip": '',
     "pg_img": '',
     "pg_blank1": '',
@@ -36,7 +36,7 @@ def map_main_only(page_list):
         1) main-group was processed from the JPEG version, thus their names are not re-listed.
         2) main-group txt files simply need to be re-indexed by one since JPEGs are zero-indexed."""
     
-    og_pdf = '/Users/samxp/Documents/CESTA-Summer/source-internetarchive/bub_gb_MbxYAAAAcAAJ.pdf'
+    og_pdf = '/Users/USER/Documents/CESTA-Summer/source-internetarchive/bub_gb_MbxYAAAAcAAJ.pdf'
 
     with open(og_pdf, 'rb') as input_pdf_file:
         reader = PyPDF2.PdfReader(input_pdf_file)

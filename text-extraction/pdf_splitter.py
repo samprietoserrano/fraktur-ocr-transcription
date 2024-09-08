@@ -102,7 +102,7 @@ def print_options():
 def main():
     print("------------------------")
     print("Initializing program...")
-    input_pdf = '/Users/samxp/Documents/CESTA-Summer/source-internetarchive/bub_gb_MbxYAAAAcAAJ.pdf'  # Path to the input PDF file
+    input_pdf = '/Users/USER/Documents/CESTA-Summer/source-internetarchive/bub_gb_MbxYAAAAcAAJ.pdf'  # Path to the input PDF file
 
     options = print_options()
     search = input("Enter option from above: ")
@@ -119,7 +119,7 @@ def main():
     readline.parse_and_bind("tab: complete")
     readline.set_completer(complete)
 
-    output_path = input("Enter the full saving path using tab autocomplete \n (e.g., /Users/samxp/.../myfile.pdf): ")
+    output_path = input("Enter the full saving path using tab autocomplete \n (e.g., /Users/USER/.../myfile.pdf): ")
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
     if 'main' not in search:

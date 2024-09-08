@@ -33,11 +33,11 @@ def update_word_file(original_file, words_to_remove, suffix="_corrected"):
 
 def main():
     # Step 1: Create a combined word list from files with "yes" in their name (from the manualcheck program outputs)
-    manchck_proc_folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/eren_manchck-proc'  # Set this to your folder path
+    manchck_proc_folder = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/eren_manchck-proc'  # Set this to your folder path
     combined_word_list = get_word_list_from_files(manchck_proc_folder, filter_keyword="yes")
 
     # Step 2: Remove those words from other word list (file fed into the manualcheck porgram)
-    original_words = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/metadata/file-error-unknowns.txt' 
+    original_words = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck/metadata/file-error-unknowns.txt' 
     update_word_file(original_words, combined_word_list, suffix="_corrected")
 
     # Step 3: Remove those words from being marked as misspelled in the txt files

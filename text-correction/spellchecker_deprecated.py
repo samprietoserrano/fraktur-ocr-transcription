@@ -5,7 +5,6 @@ from collections import Counter
 from spellchecker import SpellChecker
 
 def preprocess_text(text):
-    # text = re.sub(r'[^a-zA-ZäöüÄÖÜß ]', ' ', text)
     german_letter_pattern = r'^[a-zA-ZäöüÄÖÜß]+$'
 
     words = text.split()
@@ -98,8 +97,6 @@ def spellcheck(data, folder, output, option):
                     else:
                         text[text_lower.index(word)] = correction
 
-                    # print(f"Misspelled: {og_word}, Correction: {correction}")
-
             # Create the target folder if it doesn't exist
             os.makedirs(output, exist_ok=True)
 
@@ -144,14 +141,14 @@ def spellcheck(data, folder, output, option):
 
 def main():
     # Load and preprocess all text files
-    directories = ['/Users/samxp/Documents/CESTA-Summer/corpus-files/dta_kernkorpus_plain_1600-1699', 
-                   '/Users/samxp/Documents/CESTA-Summer/corpus-files/dta_kernkorpus_plain_1700-1799']
+    directories = ['/Users/USER/Documents/CESTA-Summer/corpus-files/dta_kernkorpus_plain_1600-1699', 
+                   '/Users/USER/Documents/CESTA-Summer/corpus-files/dta_kernkorpus_plain_1700-1799']
     
-    corpus_save = '/Users/samxp/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words.txt'
-    freq_save = '/Users/samxp/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words-freq.json'
+    corpus_save = '/Users/USER/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words.txt'
+    freq_save = '/Users/USER/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words-freq.json'
 
-    txt_folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp4-unhyphen-2'
-    txt_folder_save = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck'
+    txt_folder = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp4-unhyphen-2'
+    txt_folder_save = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck'
 
     select = 2
     if select == 1:

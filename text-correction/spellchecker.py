@@ -12,11 +12,7 @@ def enchant_word(word):
     """Uses PyEnchant dictionary to filter valid German words."""
     if not word or german_dict.check(word):
         return True
-
-    # # Get best suggestions, if any, for the invalid word
-    # suggestions = german_dict.suggest(word)
-    # if suggestions:
-    #     print(word, suggestions[0])
+    
     return False
 
 
@@ -27,7 +23,6 @@ def pattern_match(word):
         if '-' in word:
             spec_hyphen_pattern = r'[a-zA-ZäöüÄÖÜßſẞ]+(?:-[a-zA-ZäöüÄÖÜßſẞ]+)*'
             if re.fullmatch(spec_hyphen_pattern, word) and word.count('-') < 2:
-                # print(word)
                 return True
             return False
         return True
@@ -62,8 +57,6 @@ def load_and_preprocess_files(directories, dict_path, freq_path, save_freq):
     corpus_count = count_corpus_files(directories)
     for directory in directories:
         for filename in os.listdir(directory):
-            # if corpus_count < 700:
-            #     break
             if filename.endswith(".txt"):
                 with open(os.path.join(directory, filename), 'r', encoding='utf-8') as file:
                     text = file.read()
@@ -105,7 +98,7 @@ def load_freq(freq_path, load_clarin=False, upd_corpus=[], save_update=True):
             dbl_save_freq(freq_path, json_obj)
         
     if load_clarin:
-        clarin_file = '/Users/samxp/Documents/CESTA-Summer/corpus-files/clarin_GeMiCorpus_1500-1700/Wordlist.txt'
+        clarin_file = '/Users/USER/Documents/CESTA-Summer/corpus-files/clarin_GeMiCorpus_1500-1700/Wordlist.txt'
         
         with open(clarin_file, 'r', encoding='utf-16-le') as f:
             lines = f.readlines()
@@ -126,7 +119,6 @@ def load_freq(freq_path, load_clarin=False, upd_corpus=[], save_update=True):
 
 def get_text(line):
     """Return list version of words in that line."""
-    # words = re.findall(r'\b[a-zA-ZáäöüßÄÖÜſẞ]+\b', line) 
     words = re.findall(r'\b[a-zA-ZäöüßÄÖÜſẞ]+\b', line) 
     words_lower = [word.lower() for word in words]
     return words, words_lower
@@ -228,15 +220,10 @@ def spellcheck(data, folder, output, option, redo=False, meta=True, space_corr=T
     misspelled_all, spck_corrections_used, missed_and_fixed, still_missing= [], [], [], []
     error_map = dict()
     countdown = count_corpus_files([folder])
-    # skips = 10
-    # print("try starting...")
 
     filename_store = []
     try:
         for filename in os.listdir(folder):
-            # if skips:
-            #     skips -= 1
-            #     continue
             errors_in_file = 0
             if filename.endswith('.txt'):
                 if not redo and len(get_starting_file(output)) > 0:
@@ -378,18 +365,18 @@ def spellcheck(data, folder, output, option, redo=False, meta=True, space_corr=T
 
 def main():
     # Load and preprocess all text files
-    directories = ['/Users/samxp/Documents/CESTA-Summer/corpus-files/dta_kernkorpus_plain_1600-1699', 
-                   '/Users/samxp/Documents/CESTA-Summer/corpus-files/dta_kernkorpus_plain_1700-1799']
+    directories = ['/Users/USER/Documents/CESTA-Summer/corpus-files/dta_kernkorpus_plain_1600-1699', 
+                   '/Users/USER/Documents/CESTA-Summer/corpus-files/dta_kernkorpus_plain_1700-1799']
     
-    corpus_path = '/Users/samxp/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words.txt'
-    corpus_path_r = '/Users/samxp/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/manchck/custom_words-remaining.txt'
-    freq_path = '/Users/samxp/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words-freq.json'
+    corpus_path = '/Users/USER/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words.txt'
+    corpus_path_r = '/Users/USER/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/manchck/custom_words-remaining.txt'
+    freq_path = '/Users/USER/Documents/CESTA-Summer/corpus-files/new-dta_kernkorpurs_plain/custom_words-freq.json'
 
     choice = input("Continue with script (vs feeding custom paths)? (y/n): ")
 
     if choice == "y":
-        txt_folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp1-merged'
-        txt_folder_save = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp2-merged-pyspck'
+        txt_folder = '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp1-merged'
+        txt_folder_save = '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp2-merged-pyspck'
     elif choice == "n":
         txt_folder = input("Enter path for folder of txt files: ")
         txt_folder_save = input("Enter path to folder for saving: ")

@@ -202,12 +202,12 @@ def process_folder(folder_path, exit_folder, opt):
 
 
 def main():
-    input_folders = ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script',
-                     '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp1',
-                    '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp2']
-    exit_folders = ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp1',
-                    '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp2',
-                    '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp3']
+    input_folders = ['/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script',
+                     '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp1',
+                    '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp2']
+    exit_folders = ['/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp1',
+                    '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp2',
+                    '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp3']
 
     select = 3
     # Options for 'select':

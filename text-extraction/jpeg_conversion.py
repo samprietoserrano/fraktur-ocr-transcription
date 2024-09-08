@@ -30,6 +30,6 @@ def batch_convert(input_folder, output_folder, batch_size=100):
                 future.result()
 
 if __name__ == "__main__":
-    input_folder = "/Users/samxp/Documents/CESTA-Summer/bub_gb_MbxYAAAAcAAJ_jp2"
-    output_folder = "/Users/samxp/Documents/CESTA-Summer/all-pages-as-jpeg"
+    input_folder = "/Users/USER/Documents/CESTA-Summer/bub_gb_MbxYAAAAcAAJ_jp2"
+    output_folder = "/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg"
     batch_convert(input_folder, output_folder)

@@ -72,26 +72,26 @@ def remove_files(folder):
 
 
 group_paths = {
-    "begin": ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/beginning/pp1', 
-              '/Users/samxp/Documents/CESTA-Summer/mappings/beg-text-map.txt'],
-    "toc": ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/toc/pp1', 
-              '/Users/samxp/Documents/CESTA-Summer/mappings/toc-text-map.txt'],
-    "starts": ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/nonsimple-starters/pp2-nm-pyspck', 
-              '/Users/samxp/Documents/CESTA-Summer/mappings/nonsimple-text-map.txt'],
-    "main": ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck', 
-              '/Users/samxp/Documents/CESTA-Summer/mappings/main-text-map.txt'],
-    "tables": ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/tables/pp-no-margin', 
-              '/Users/samxp/Documents/CESTA-Summer/mappings/tables-text-map.txt'],
-    "other": ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/other/pp-no-margin', 
-              '/Users/samxp/Documents/CESTA-Summer/mappings/other-text-map.txt'],
-    "index": ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp2-merged-pyspck', 
-              '/Users/samxp/Documents/CESTA-Summer/mappings/index-text-map.txt'],
-    "dict": ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/definitions/pp1', 
-              '/Users/samxp/Documents/CESTA-Summer/mappings/dict-text-map.txt']
+    "begin": ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/beginning/pp1', 
+              '/Users/USER/Documents/CESTA-Summer/mappings/beg-text-map.txt'],
+    "toc": ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/toc/pp1', 
+              '/Users/USER/Documents/CESTA-Summer/mappings/toc-text-map.txt'],
+    "starts": ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/nonsimple-starters/pp2-nm-pyspck', 
+              '/Users/USER/Documents/CESTA-Summer/mappings/nonsimple-text-map.txt'],
+    "main": ['/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp5-pyspck', 
+              '/Users/USER/Documents/CESTA-Summer/mappings/main-text-map.txt'],
+    "tables": ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/tables/pp-no-margin', 
+              '/Users/USER/Documents/CESTA-Summer/mappings/tables-text-map.txt'],
+    "other": ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/other/pp-no-margin', 
+              '/Users/USER/Documents/CESTA-Summer/mappings/other-text-map.txt'],
+    "index": ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/index/pp2-merged-pyspck', 
+              '/Users/USER/Documents/CESTA-Summer/mappings/index-text-map.txt'],
+    "dict": ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/definitions/pp1', 
+              '/Users/USER/Documents/CESTA-Summer/mappings/dict-text-map.txt']
 }
 
 def main():
-    target_folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/merged' 
+    target_folder = '/Users/USER/Documents/CESTA-Summer/output-txt/merged' 
 
     task = input("Do you want to 'remove' or 'load'? ")
     if 'remove' in task:

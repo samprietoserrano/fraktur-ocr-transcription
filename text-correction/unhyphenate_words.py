@@ -46,6 +46,6 @@ def process_directory(src, tgt):
             print(f"Processed {filename}")
 
 # Example usage:
-src = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp2'
-tgt = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp4-unhyphen-new'
+src = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp2'
+tgt = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script/pp4-unhyphen-new'
 process_directory(src, tgt)

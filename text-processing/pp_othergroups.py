@@ -102,9 +102,9 @@ def process_folder(folder_path, option, exit_folders=[]):
 def main():
     ### This script is highly CUSTOMIZABLE since it handled 8 different page groups with different needs. ###
 
-    folder_in = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/tables'
-    folders_out = ['/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/tables/pp-no-margin',
-                  '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/tables/pp-w-margin']
+    folder_in = '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/tables'
+    folders_out = ['/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/tables/pp-no-margin',
+                  '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/tables/pp-w-margin']
 
     select = 1
     if select == 1:

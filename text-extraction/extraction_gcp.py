@@ -1,20 +1,13 @@
 from google.api_core.client_options import ClientOptions
 from google.cloud import documentai
-# import PyPDF4
 import io
 import os
-# import shutil
-# import fitz  # PyMuPDF
-# from pdf2image import convert_from_path
-# import pytesseract
 from PIL import Image
-# import time
 from tqdm import tqdm
-# import objc
 
 
 def ocr_image(file_path, exit_path):
-    credential_path = '/Users/samxp/Documents/CESTA-Summer/gcp_cesta-sum-2024_processor-key.json' # add path, json file
+    credential_path = '/Users/USER/Documents/CESTA-Summer/gcp_cesta-sum-2024_processor-key.json' # add path, json file
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
     PROJECT_ID = "cesta-sum-2024"
@@ -39,7 +32,6 @@ def ocr_image(file_path, exit_path):
 
     # Read the file into memory
     with open(FILE_PATH, "rb") as image:
-        # image_content = image.read()
         img = Image.open(image)
         box = (243, 0, 1340, 2500)
         img = img.crop(box)
@@ -60,8 +52,6 @@ def ocr_image(file_path, exit_path):
     result = docai_client.process_document(request=request)
 
     document_object = result.document
-    # print("Document processing complete.")
-    # print(f"Text: {document_object.text}")
 
     # Split the filename into name and extension
     base_name, _ = os.path.splitext(exit_path)
@@ -74,14 +64,9 @@ def ocr_image(file_path, exit_path):
 
 
 def process_folder(folder_path, exit_folder):
-    # Get list of JPEG files to process
-    # files = [file for file in os.listdir(source_folder) if file.lower().endswith('.jpg') and pattern.search(file)]
-
     with tqdm(total=774, desc="OCRing txt", unit="file") as pbar:
         for file_name in os.listdir(folder_path):
             if file_name.endswith('.jpg'):
-                # tmp_name = file_name[:-4] + ".txt"
-                # if tmp_name not in os.listdir(exit_folder):
                 file_path = os.path.join(folder_path, file_name)
                 exit_path = os.path.join(exit_folder, file_name)
                 ocr_image(file_path, exit_path)
@@ -90,10 +75,10 @@ def process_folder(folder_path, exit_folder):
 
 
 def main():
-    folder_path = '/Users/samxp/Documents/CESTA-Summer/all-pages-as-jpeg/main-only'
+    folder_path = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg/main-only'
 
     # Batch process the entire folder of images containing the main-text of the book
-    exit_folder = '/Users/samxp/Documents/CESTA-Summer/output-txt/from-script/gcp-script'
+    exit_folder = '/Users/USER/Documents/CESTA-Summer/output-txt/from-script/gcp-script'
     os.makedirs(exit_folder, exist_ok=True)
     process_folder(folder_path, exit_folder)
 

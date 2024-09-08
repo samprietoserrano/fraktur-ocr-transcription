@@ -39,13 +39,13 @@ def rename_txt_files(folder_path):
 
 # Paths for each page group map
 group_paths = {
-    # "pg_begin": '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/beginning',
-    # "pg_toc": '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/toc',
-    "pg_starts": '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/nonsimple-starters',
-    "pg_index": '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/index',
-    "pg_tables": '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/tables',
-    "pg_other": '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/other',
-    "pg_dict": '/Users/samxp/Documents/CESTA-Summer/output-txt/from-transkribus/definitions'
+    # "pg_begin": '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/beginning',
+    # "pg_toc": '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/toc',
+    "pg_starts": '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/nonsimple-starters',
+    "pg_index": '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/index',
+    "pg_tables": '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/tables',
+    "pg_other": '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/other',
+    "pg_dict": '/Users/USER/Documents/CESTA-Summer/output-txt/from-transkribus/definitions'
 }
 
 def main():
