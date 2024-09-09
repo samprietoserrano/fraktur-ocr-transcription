@@ -1,6 +1,6 @@
 # Fraktur German/Peter Kolb transcription project
 
-This repo contains code and output from my project at Stanford Center for Spatial and Textual Analysis (CESTA). The project consisted of transcribing German explorer Peter Kolb (or Kolbe)'s 1719 book on the Cape of Good Hope from scanned images to machine-readable and editiable text files. Versions of these files are in the `output-txt` folder. 
+This repo contains code and output from my project at Stanford Center for Spatial and Textual Analysis (CESTA). The project consisted of transforming German explorer Peter Kolb (or Kolbe)'s 1719 book on the Cape of Good Hope from scanned images to machine-readable and editiable text files. Versions of these files are in the `output-txt` folder. 
 
 ### Key Resources
 
