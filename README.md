@@ -109,11 +109,11 @@ group_lists = {
 ## Spellchecker Options
 The spellchecker has verious terminal command options when run. The user can select a combination of the following features for their spellchecker:
 
-* use hard-coded list of files being spellchecked, or provide your own list
-* create a brand new word list/frequency dict or use the pre-exiting one
-* use a word list or frequency dict as the corpus for the spellchecker (`word_frequency.load_words(data)` vs `word_frequency.load_json(data)` in the PySpellChecker API)
-* include or exclude the CLARIN archival data set (given their origin is medical context which might be deemed not relevant to the book contents)
-* save or not save the frequency dict created (if not using a pre-existing)
+* use hard-coded list of files being spellchecked, or provide a folder with your own list
+* create a brand new word list/frequency dict or use a pre-exiting one
+* * save or not save the frequency dict created (if not using a pre-existing)
+* run the spellchecking using either a word list or frequency dict as the corpus (`word_frequency.load_words(data)` vs `word_frequency.load_json(data)` in the PySpellChecker API)
+* include or exclude the CLARIN archival data set as corpus for spellchecking (given that dataset comes from a medical context and might be deemed not relevant to the book contents)
 
 I have included a snapshot of the relevant code to help visualize this part of the program.
 ~~~
@@ -159,5 +159,5 @@ elif select == 5:
 * The source file from Internet Archive is **NOT** complete. There is missing content around page number 57-59, as seen by how the printed page numbers at the top of the page margins do not line up in sequence. In my work I decided to skip page 58.
 
 ## Author
-Feel free to contact me by Github [@samprietoserrano](https://www.github.com/samprietoserrano), [Email](mailto:samprieto@outlook.com), or [LinkedIn/SamPrietoSerrano](http://www.linkedin.com/in/samprietoserrano).
+Feel free to contact me by GitHub [@samprietoserrano](https://www.github.com/samprietoserrano), [email](mailto:samprieto@outlook.com), or [linkedin/samprietoserrano](http://www.linkedin.com/in/samprietoserrano).
 
