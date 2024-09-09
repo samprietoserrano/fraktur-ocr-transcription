@@ -16,15 +16,15 @@ In this project I was tasked with taking Kolb's 1719 book &mdash;the most-thorou
 ### Text Extraction 
 The two main requirements for a transcription tool were: 
 1. understanding early-modern Fraktur German writing, and
-2. recognizing the reading order between columns and headers.
+2. recognizing the reading order between columns and headers
 
 Most of the readily-accessible tools I explored came up short in some way:
-| Tool  | Issues |
-|-------|-------|
-| ABBYY FineReader, Google Docs, Adobe Acrobat | failed to recognize different column regions |
-| Transkribus | too time-consuming if using on the whole book |
-| Gemini, ChatGPT-4o, trOCR, Claude| unreliable generation if untrained; too time-consuming if trained |
-| Tesseract, PyMuPDF | lacked language training for Fraktur German |
+| Tool  | Strength | Issues |
+|-------|---------|-------|
+| ABBYY FineReader, Google Docs, Adobe Acrobat | pretty good at recognizing Fraktur print | failed to recognize different column regions |
+| Transkribus | pretty good on Fraktur, and customizable | too time-consuming if using on the whole book |
+| Gemini, ChatGPT-4o, trOCR, Claude| pretty good overall on small subset of pages | unreliable generation in large batches; training would be too time-consuming|
+| Tesseract, PyMuPDF | good at text region processing | lacked language training for Fraktur German |
 
 The focus of my task, and purpose of the larger Early Cape Travelers research project, was not to develop high accurary text tools but rather produce the best possible version of this book within my internship time. With this in mind, I ended up going with a combination of GCP Document AI and Transkribus.
 
@@ -36,9 +36,11 @@ My process for text extraction is visualized below, where the deciding factor be
 
 ### Text Cleaning
 
-Next, I moved into post-processing the extracted text with a handful of NLP open-source software. After smaller corrections, I faced the need to spell check the 550k words in the corpus. I found that all other spell checking tools seemed to not handle the historical vocabulary, I ended up creating and feeding my own dictionary of German words from 1500-1800 to PySpellChecker.
+Next, I moved into post-processing the extracted text with a handful of NLP open-source software. After smaller corrections, I faced the need to spell check the 550k words in the corpus. I found that all other spell checking tools<sup>1</sup> seemed to not handle the historical vocabulary, so I ended up creating my own dictionary of German words from 1500-1800 to feed into PySpellChecker.
 
-Finally, I was able to bring all text, images, and tables together into a Docx document that is readable, editable, and searchable for specific content depending on the research goals. In the `output-txt` folder there is also the plain text files for every page.
+Finally, I was able to bring all text, images, and tables together into a Docx document that is readable, editable, and searchable for specific content depending on the research goals. This document is found in the `output-txt` folder, along with the plain text files for every page.
+
+<sup>1</sup> e.g. DeepL Translator, LanguageTool, Sapling, Arvin, MentorDunden, Google Translate
 
 ## Script pipeline
 
@@ -53,20 +55,20 @@ Below you find the order in which I utilized the scripts in this repo during my 
 5. `text-extraction\jpeg_duplicator.py`
    * copy JPEGs into folder for each page group, process on Transkribus
 7. `text-processing\reindex_txt_names.py`
-   * rename Transkribus-exported groups to be 1-indexed (not 0-indexed)
+   * rename Transkribus-exported txt files to be 1-indexed (not 0-indexed)
 9. `text-processing\pp_maingroup.py`
-   * post-process the ‘main’ page group with level 1 and level 2
+   * post-process the ‘main’ page group with two levels (line-by-line cleaning, line-by-line correction)
 11. `text-processing\pp_index.py`
-    * post-process the ‘index’ page group in three levels (basic, non-special, specials)
+    * post-process the ‘index’ page group in three levels (basic corrections, non-special, special)
 13. `text-processing\pp-othergroups.py`
-    * post-process all other page groups in two levels (line numbers, correct lines)
-    * do each page group at a time; customize script paths
+    * post-process all other page groups in two levels (line-by-line cleaning, line-by-line correction)
+    * NOTE: do each page group at a time; customize the script paths
 15. `text-correction\unhyphenate.py`
     * unhyphenate txt files as prep for running spellchecker
 17. `text-correction\spellchecker.py`
     * run spellchecker program
-    * run one of the corpus creation options first (to feed the spell checker)
-    * once a corpus exists, run a spellchecker option with either hard-coded or fed input/output paths
+      * run one of the corpus creation options first (to feed the spell checker)
+      * once a corpus exists, run a spellchecker option with either hard-coded or fed input/output paths
 19. `text-processing\page_order_mapmaker.py`
     * create a mapping file for each page group
 21. `text-processing\page_order_mapreader.py`
@@ -79,7 +81,7 @@ Below you find the order in which I utilized the scripts in this repo during my 
     * optionally, update the list of unknown words after a manual review
 29. `text-correction\manualcheck_corpus.py`
     * optionally, run a manual review on the list of corpus words
-    * this script auto-updates, thus no need for separate update script
+      * since this script auto-updates, there is no need for separate update script
    
 
 ## Page Group Breakdown
@@ -152,7 +154,7 @@ elif select == 5:
 ## Recommended Next Steps
 * Run the manual check program with a German-speaker to vet unknown words and then run the updating version of the script.
 * Continue expanding the corpus collection to add to the three file sets used.
-* Possible create a Python package for the spellchecker to optimize its functionality. 
+* Possibly create a Python package for the spellchecker to optimize its functionality. 
 
 #### Warnings
 * Some pages that hold illustrations also contain some minor text, serving as descriptor of the illustration. However, of these pages, only page 17 (0017.txt) was run through the text extraction process (and oversight on my part). Future versions of this project should process all pages in the "pg_img-new" group that also have text.
