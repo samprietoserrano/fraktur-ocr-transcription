@@ -151,6 +151,32 @@ elif select == 5:
     word_freq = load_freq(freq_path, load_clarin=True)
 ~~~
 
+## Setting Up the Virtual Environment
+
+To ensure that all necessary dependencies are installed and isolated from your global Python environment, it's recommended to use a virtual environment. Follow the steps below to create and use a virtual environment for this project.
+
+Run the following command to create a virtual environment in the project directory:
+
+```bash
+python -m venv venv
+```
+Run the following command to activate the virtual environment (for Mac):
+
+```bash
+source venv/bin/activate
+```
+Run the following command to install requirements in the virtual environment (for Mac):
+
+```bash
+pip install -r requirements.txt
+pip install python-docx
+```
+Run the following command to deactivate the virtual environment (for Mac):
+
+```bash
+deactivate
+```
+
 ## Recommended Next Steps
 * Run the manual check program with a German-speaker to vet unknown words and then run the updating version of the script.
 * Continue expanding the corpus collection to add to the three file sets used.
