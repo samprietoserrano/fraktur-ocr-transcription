@@ -41,7 +41,7 @@ def load_two_column_pages():
     return pages
 
 
-def add_intro_page(doc):
+def add_intro_page(doc, img_available):
     """Adds an introduction page to the document.
     Requires to be edited to change the content as well as the links and image."""
 
@@ -87,34 +87,36 @@ def add_intro_page(doc):
         second_par.add_run(', ' + url + '\n')  # New line
         item += 1
 
-    # Image paragraph
-    image_path = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg/images-only/bub_gb_MbxYAAAAcAAJ_0016.jpg'
-    image_par = doc.add_paragraph()
-    run = image_par.add_run()
-    run.add_picture(image_path, width=Inches(1.5), height=Inches(2.5))
-    image_par.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    if img_available:
+        # Image paragraph
+        image_path = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg/images-only/bub_gb_MbxYAAAAcAAJ_0016.jpg'
+        image_par = doc.add_paragraph()
+        run = image_par.add_run()
+        run.add_picture(image_path, width=Inches(1.5), height=Inches(2.5))
+        image_par.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
-    # Caption paragraph
-    caption_par = doc.add_paragraph()
-    caption_run = caption_par.add_run('Portrait of Peter Kolb (1727). Page 17 in the book.')
-    caption_par.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-    caption_run.italic = True 
-    caption_par.paragraph_format.space_after = Pt(12)
+        # Caption paragraph
+        caption_par = doc.add_paragraph()
+        caption_run = caption_par.add_run('Portrait of Peter Kolb (1727). Page 17 in the book.')
+        caption_par.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        caption_run.italic = True 
+        caption_par.paragraph_format.space_after = Pt(12)
 
 
-def txt_to_word(folder, output_folder, format):
+def txt_to_word(folder, output_folder, format, parts=False, img_available=True):
     """Creates either a simple or formatted docx file with the provided txt files."""
 
     # Create a new Document and get list of txt files
     doc = Document()
-    add_intro_page(doc)
+    add_intro_page(doc, img_available)
     
     page_files = [f for f in os.listdir(folder) if f.endswith(".txt")]
 
     if format:
-        img_tbl_nums, img_paths, tbl_nums = load_image_pages()
         two_column_pages = load_two_column_pages()
-        page_files = include_image_files(page_files, img_tbl_nums)
+        if img_available:
+            img_tbl_nums, img_paths, tbl_nums = load_image_pages()
+            page_files = include_image_files(page_files, img_tbl_nums)
 
     # Sort the files numerically based on the extracted number
     page_files.sort(key=extract_number)
@@ -126,13 +128,36 @@ def txt_to_word(folder, output_folder, format):
 
         # if len(pages_added) > 80:
         #     break
+
+        if parts:
+            if len(pages_added) % 100 == 0:
+                # Make folder for partial documents
+                partials_dir = os.path.join(output_folder, "partial_docx")
+                if not os.path.exists(partials_dir):
+                    os.makedirs(partials_dir, exist_ok=True)
+
+                # Save the partial document
+                today = datetime.today()
+                date_string = today.strftime('%Y-%m-%d')
+
+                base_name = 'format-compiled-doc-' if format else 'simple-compiled-doc-'
+                next_file = get_next_filename(partials_dir, base_name + date_string, 'docx')
+                output_file = os.path.join(partials_dir, next_file)
+                doc.save(output_file)
+
+                print("The partial Docx was saved!")
+
+                # Create a new Document
+                doc = Document()
+                add_intro_page(doc, img_available)
         
-        if format and curr_file_number in img_tbl_nums:
-            if filename not in pages_added:
-                type = "img" if curr_file_number not in tbl_nums else "tbl"
-                add_image_to_page(doc, img_paths[int(curr_file_number)], curr_file_number, type=type)
-                pages_added.append(filename)
-                continue
+        if img_available:
+            if format and curr_file_number in img_tbl_nums:
+                if filename not in pages_added:
+                    type = "img" if curr_file_number not in tbl_nums else "tbl"
+                    add_image_to_page(doc, img_paths[int(curr_file_number)], curr_file_number, type=type)
+                    pages_added.append(filename)
+                    continue
 
         with open(os.path.join(folder, filename), 'r', encoding='utf-8') as file:
             content = file.read()
@@ -169,21 +194,27 @@ def txt_to_word(folder, output_folder, format):
 
 
 def main():
-    folder = '/Users/USER/Documents/CESTA-Summer/output-txt/merged'
-    output_folder = '/Users/USER/Documents/CESTA-Summer/output-txt/merged/docx'
+    folder = '/Users/USER/Documents/github-clones/fraktur-ocr-transcription/output-txt/all-merged'
+    output_folder = '/Users/USER/Documents/github-clones/fraktur-ocr-transcription/output-txt/all-merged/docx'
     os.makedirs(output_folder, exist_ok=True)
 
+    process_choice = input("Create single docx or docx split in multiple parts? (single/parts): ")
+    image_choice = input("Create with image insertion? (img folder needs to be in the script!) (y/n): ")
+
     format_choice = input("Make the Docx with formatting? (y/n/both): ")
-    format_options = {
+    options = {
         "y": True,
-        "n": False
+        "n": False, 
+        "single": False,
+        "parts": True
     }
 
     if format_choice == "both":
-        txt_to_word(folder, output_folder, format=False)
-        txt_to_word(folder, output_folder, format=True)
+        txt_to_word(folder, output_folder, format=False, parts=options[process_choice], img_available=options[image_choice])
+        txt_to_word(folder, output_folder, format=True, parts=options[process_choice], img_available=options[image_choice])
     else:
-        txt_to_word(folder, output_folder, format_options[format_choice])
+        txt_to_word(folder, output_folder, options[format_choice], parts=options[process_choice], img_available=options[image_choice])
+
 
 if __name__ == "__main__":
     main()
