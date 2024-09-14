@@ -12,7 +12,7 @@ from docx_creation_helpers import add_hyperlink, add_image_to_page, apply_format
 def load_image_pages():
     """Returns the page number and path of pages identified as holding an image/visual."""
 
-    image_folder = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg'
+    image_folder = '/Users/samxp/Documents/CESTA-Summer/all-pages-as-jpeg'
 
     img_nums = [1, 2, 5, 8, 17, 76, 140, 170, 177, 192, 201, 210, 218, 236, 240, 
                         456, 473, 491, 519, 523, 529, 557, 569, 576, 590, 600, 
@@ -89,7 +89,7 @@ def add_intro_page(doc, img_available):
 
     if img_available:
         # Image paragraph
-        image_path = '/Users/USER/Documents/CESTA-Summer/all-pages-as-jpeg/images-only/bub_gb_MbxYAAAAcAAJ_0016.jpg'
+        image_path = '/Users/samxp/Documents/CESTA-Summer/all-pages-as-jpeg/images-only/bub_gb_MbxYAAAAcAAJ_0016.jpg'
         image_par = doc.add_paragraph()
         run = image_par.add_run()
         run.add_picture(image_path, width=Inches(1.5), height=Inches(2.5))
@@ -106,9 +106,12 @@ def add_intro_page(doc, img_available):
 def txt_to_word(folder, output_folder, format, parts=False, img_available=True):
     """Creates either a simple or formatted docx file with the provided txt files."""
 
+    doc_pages = 0
+
     # Create a new Document and get list of txt files
     doc = Document()
     add_intro_page(doc, img_available)
+    doc_pages += 1
     
     page_files = [f for f in os.listdir(folder) if f.endswith(".txt")]
 
@@ -130,9 +133,9 @@ def txt_to_word(folder, output_folder, format, parts=False, img_available=True):
         #     break
 
         if parts:
-            if len(pages_added) % 100 == 0:
+            if doc_pages % 100 == 0:
                 # Make folder for partial documents
-                partials_dir = os.path.join(output_folder, "partial_docx")
+                partials_dir = os.path.join(output_folder, "partials_docx")
                 if not os.path.exists(partials_dir):
                     os.makedirs(partials_dir, exist_ok=True)
 
@@ -150,6 +153,7 @@ def txt_to_word(folder, output_folder, format, parts=False, img_available=True):
                 # Create a new Document
                 doc = Document()
                 add_intro_page(doc, img_available)
+                doc_pages += 1
         
         if img_available:
             if format and curr_file_number in img_tbl_nums:
@@ -157,12 +161,14 @@ def txt_to_word(folder, output_folder, format, parts=False, img_available=True):
                     type = "img" if curr_file_number not in tbl_nums else "tbl"
                     add_image_to_page(doc, img_paths[int(curr_file_number)], curr_file_number, type=type)
                     pages_added.append(filename)
+                    doc_pages += 1
                     continue
 
         with open(os.path.join(folder, filename), 'r', encoding='utf-8') as file:
             content = file.read()
         
         _ = doc.add_section(WD_SECTION.NEW_PAGE)
+        doc_pages += 1
         doc.add_heading(filename, level=1)
         if format:
             if curr_file_number in two_column_pages:
@@ -194,8 +200,8 @@ def txt_to_word(folder, output_folder, format, parts=False, img_available=True):
 
 
 def main():
-    folder = '/Users/USER/Documents/github-clones/fraktur-ocr-transcription/output-txt/all-merged'
-    output_folder = '/Users/USER/Documents/github-clones/fraktur-ocr-transcription/output-txt/all-merged/docx'
+    folder = '/Users/samxp/Documents/github-clones/fraktur-ocr-transcription/output-txt/all-merged'
+    output_folder = '/Users/samxp/Documents/github-clones/fraktur-ocr-transcription/output-txt/all-merged/docx'
     os.makedirs(output_folder, exist_ok=True)
 
     process_choice = input("Create single docx or docx split in multiple parts? (single/parts): ")
